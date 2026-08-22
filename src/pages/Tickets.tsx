@@ -1,5 +1,4 @@
 import styles from "../css/Tickets.module.css";
-
 const tickets = [
     { id: "#1048", title: "Unable to access email", requester: "Sarah Johnson", status: "Open", priority: "High", updated: "2 min ago" },
     { id: "#1047", title: "Laptop replacement request", requester: "Michael Chen", status: "In progress", priority: "Medium", updated: "1 hour ago" },
@@ -20,6 +19,7 @@ const priorityColor: Record<string, string> = {
 };
 
 export default function Tickets() {
+
     return (
         <main className={styles.page}>
             <div className={styles.header}>
