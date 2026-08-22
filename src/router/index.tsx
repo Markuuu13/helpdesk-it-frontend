@@ -3,18 +3,29 @@ import Login from "../pages/Login";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Dashboard from "../pages/Dashboard";
 import Tickets from "../pages/Tickets";
+import ProtectedRoute from "./protected_route";
+import PublicRoute from "./public_route";
+import Assets from "../pages/Assets";
 
 export const router = createBrowserRouter([
   // PUBLIC
   {
     path: "/",
-    element: <Login />,
+    element: (
+      <PublicRoute>
+        <Login />
+      </PublicRoute>
+    ),
   },
 
   // APP (LAYOUT)
   {
     path: "/app",
-    element: <DashboardLayout />,
+    element: (
+      <ProtectedRoute>
+        <DashboardLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "dashboard",
@@ -23,6 +34,10 @@ export const router = createBrowserRouter([
       {
         path: "tickets",
         element: <Tickets />,
+      },
+      {
+        path: "assets",
+        element: <Assets />,
       },
     ],
   },
