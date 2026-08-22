@@ -1,0 +1,259 @@
+.page {
+  min-height: 100vh;
+  padding: 36px 42px;
+  background: #f8fafc;
+  color: #172033;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #6366f1;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.title {
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: -0.7px;
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.primaryButton {
+  border: 0;
+  border-radius: 7px;
+  background: #4f46e5;
+  color: white;
+  padding: 11px 17px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 25px;
+}
+
+.statCard {
+  background: white;
+  border: 1px solid #e8edf3;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.statIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+}
+
+.statLabel {
+  margin: 0;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.statValue {
+  display: block;
+  font-size: 24px;
+  margin: 3px 0 2px;
+}
+
+.statDetail {
+  margin: 0;
+  font-size: 11px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.panel {
+  background: white;
+  border: 1px solid #e8edf3;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.panelHeader {
+  padding: 20px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #edf1f5;
+}
+
+.panelTitle {
+  margin: 0;
+  font-size: 17px;
+}
+
+.viewAll {
+  color: #4f46e5;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.th {
+  text-align: left;
+  padding: 12px 22px;
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: #fbfcfe;
+}
+
+.td {
+  padding: 15px 22px;
+  border-top: 1px solid #f0f2f5;
+  color: #475569;
+}
+
+.ticketId {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.ticketTitle {
+  color: #94a3b8;
+  font-size: 11px;
+  margin-top: 3px;
+  display: block;
+}
+
+.badge {
+  padding: 5px 9px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.sideStack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.activityList {
+  list-style: none;
+  margin: 0;
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.activityItem {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.activityDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.activityText {
+  margin: 0;
+  font-size: 13px;
+  color: #334155;
+}
+
+.activityTime {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.teamList {
+  list-style: none;
+  margin: 0;
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.teamItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.teamName {
+  font-size: 13px;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.teamRole {
+  display: block;
+  font-size: 11px;
+  color: #94a3b8;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.statusPill {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 10px;
+}
