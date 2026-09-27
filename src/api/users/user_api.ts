@@ -15,7 +15,7 @@ export interface UserProfile {
 }
 
 // Login API
-export default async function LoginAPI(username: string, password: string) {
+export async function LoginAPI(username: string, password: string) {
     username = username.trim();
     password = password.trim();
 

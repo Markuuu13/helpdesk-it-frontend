@@ -1,5 +1,5 @@
 import { useState } from "react";
-import LoginAPI from "../api/users/user_api";
+import { LoginAPI } from "../api/users/user_api";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -32,37 +32,37 @@ export default function Login() {
       setLoading(false);
     }
   }
-    return (
-      <div className="h-screen flex items-center justify-center bg-gray-100">
+  return (
+    <div className="h-screen flex items-center justify-center bg-gray-100">
 
-        <div className="bg-white p-6 rounded shadow w-96">
+      <div className="bg-white p-6 rounded shadow w-96">
 
-          <h1 className="text-xl font-bold mb-4">IT Help Desk Login</h1>
+        <h1 className="text-xl font-bold mb-4">IT Help Desk Login</h1>
 
-          <input
-            className="w-full border p-2 mb-3 rounded"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+        <input
+          className="w-full border p-2 mb-3 rounded"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
 
-          <input
-            className="w-full border p-2 mb-4 rounded"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        <input
+          className="w-full border p-2 mb-4 rounded"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-          <button
-            className="w-full bg-blue-500 text-white py-2 rounded"
-            onClick={() => handleLogin(username, password)}
-          >
-            Login
-          </button>
-
-        </div>
+        <button
+          className="w-full bg-blue-500 text-white py-2 rounded"
+          onClick={() => handleLogin(username, password)}
+        >
+          Login
+        </button>
 
       </div>
-    );
-  }
+
+    </div>
+  );
+}
