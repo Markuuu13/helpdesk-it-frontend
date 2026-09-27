@@ -37,7 +37,10 @@ export default function DashboardLayout() {
             placeholder="Search tickets..."
           />
 
-          <div className="text-sm text-gray-600">
+          <div 
+          className="text-sm text-gray-600 cursor-pointer"
+          onClick={() => navigate("/profile")}
+          >
             {user?.name || "User"}
           </div>
 
