@@ -1,4 +1,6 @@
+import { useState } from "react";
 import styles from "../css/Tickets.module.css";
+import AddTicketForm from "../components/forms/AddTicketForm";
 const tickets = [
     { id: "#1048", title: "Unable to access email", requester: "Sarah Johnson", status: "Open", priority: "High", updated: "2 min ago" },
     { id: "#1047", title: "Laptop replacement request", requester: "Michael Chen", status: "In progress", priority: "Medium", updated: "1 hour ago" },
@@ -19,6 +21,7 @@ const priorityColor: Record<string, string> = {
 };
 
 export default function Tickets() {
+    const [isFormOpen, setIsFormOpen] = useState(false);
 
     return (
         <main className={styles.page}>
@@ -27,7 +30,11 @@ export default function Tickets() {
                     <h1 className={styles.title}>Tickets</h1>
                     <p className={styles.subtitle}>Track and manage support requests from your team.</p>
                 </div>
-                <button className={styles.primaryButton}>＋ New ticket</button>
+                <button
+                    className={styles.primaryButton} 
+                    onClick={() => setIsFormOpen(true)}>
+                    ＋ New ticket
+                </button>
             </div>
 
             <section className={styles.stats}>
@@ -107,6 +114,10 @@ export default function Tickets() {
                     </div>
                 </div>
             </section>
+
+            {isFormOpen && (
+                <AddTicketForm onClose={() => setIsFormOpen(false)}/>
+            )}
         </main>
     );
 }
