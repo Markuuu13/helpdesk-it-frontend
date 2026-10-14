@@ -55,7 +55,7 @@ export async function LoginAPI(username: string, password: string) {
 }
 
 // User Profile
-export async function UserProfileAPI(){
+export async function UserProfileAPI(): Promise<UserProfile> {
     const token = localStorage.getItem("access_token");
 
     if (!token) {
