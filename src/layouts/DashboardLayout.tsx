@@ -2,24 +2,28 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../components/sidebar/Sidebar";
 import { useEffect, useState } from "react";
 import { UserProfileAPI, type UserProfile } from "../api/users/user_api";
+import { TicketAPI, type AllTicket } from "../api/tickets/ticket_api";
 
 export default function DashboardLayout() {
 
   const navigate = useNavigate();
   const [user, setUser] = useState<UserProfile | null>(null);
+  const [tickets, setTickets] = useState<AllTicket | null>(null);
   const [loading, setLoading] = useState(true);
-  
-    useEffect(() => {
-      UserProfileAPI()
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    UserProfileAPI()
       .then(setUser)
-      .catch((error) => {
-        console.error("Error fetching user profile:", error);
+      .catch((err) => {
+        console.error("Error fetching user profile:", err);
+        setError("Failed to load user profile.");
         localStorage.removeItem("access_token");
         navigate("/");
       })
       .finally(() => setLoading(false));
-    }, []);
-    
+  }, []);
+  
   return (
     <div className="flex h-screen bg-gray-100">
 
@@ -37,9 +41,9 @@ export default function DashboardLayout() {
             placeholder="Search tickets..."
           />
 
-          <div 
-          className="text-sm text-gray-600 cursor-pointer"
-          onClick={() => navigate("/profile")}
+          <div
+            className="text-sm text-gray-600 cursor-pointer"
+            onClick={() => navigate("/profile")}
           >
             {user?.name || "User"}
           </div>

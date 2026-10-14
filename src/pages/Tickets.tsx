@@ -1,27 +1,55 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../css/Tickets.module.css";
 import AddTicketForm from "../components/forms/AddTicketForm";
-const tickets = [
-    { id: "#1048", title: "Unable to access email", requester: "Sarah Johnson", status: "Open", priority: "High", updated: "2 min ago" },
-    { id: "#1047", title: "Laptop replacement request", requester: "Michael Chen", status: "In progress", priority: "Medium", updated: "1 hour ago" },
-    { id: "#1046", title: "VPN connection issue", requester: "Emily Davis", status: "Open", priority: "Low", updated: "3 hours ago" },
-    { id: "#1045", title: "Software installation", requester: "James Wilson", status: "Resolved", priority: "Medium", updated: "Yesterday" },
-];
+import { TicketAPI, type AllTicket } from "../api/tickets/ticket_api";
+
+// const tickets = [
+//     { id: "#1048", title: "Unable to access email", requester: "Sarah Johnson", status: "Open", priority: "High", updated: "2 min ago" },
+//     { id: "#1047", title: "Laptop replacement request", requester: "Michael Chen", status: "In progress", priority: "Medium", updated: "1 hour ago" },
+//     { id: "#1046", title: "VPN connection issue", requester: "Emily Davis", status: "Open", priority: "Low", updated: "3 hours ago" },
+//     { id: "#1045", title: "Software installation", requester: "James Wilson", status: "Resolved", priority: "Medium", updated: "Yesterday" },
+// ];
 
 const statusColor: Record<string, string> = {
-    Open: "#2563eb",
-    "In progress": "#d97706",
-    Resolved: "#16a34a",
+    open: "#2563eb",
+    "in_progress": "#d97706",
+    resolved: "#16a34a",
+    closed: "#94a3b8",
 };
 
 const priorityColor: Record<string, string> = {
-    High: "#dc2626",
-    Medium: "#64748b",
-    Low: "#64748b",
+    high: "#dc2626",
+    medium: "#64748b",
+    low: "#64748b",
 };
 
 export default function Tickets() {
     const [isFormOpen, setIsFormOpen] = useState(false);
+    const [tickets, setTickets] = useState<AllTicket[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [status, setStatus] = useState("all");
+
+    const filteredTickets =
+        status == "all"
+            ? tickets
+            : tickets.filter((t) => t.status.toLowerCase() == status);
+
+    useEffect(() => {
+        TicketAPI()
+            .then((data => {
+                if (data === null) setError("Failed to load tickets.");
+                else setTickets(data);
+            }))
+            .catch((err) => {
+                console.error("Error fetching tickets:", err);
+                setError("Failed to load tickets.");
+            })
+            .finally(() => setLoading(false));
+    }, []);
+
+    if (loading) return <main className={styles.page}>Loading...</main>;
+    if (error) return <main className={styles.page}>{error}</main>;
 
     return (
         <main className={styles.page}>
@@ -31,7 +59,7 @@ export default function Tickets() {
                     <p className={styles.subtitle}>Track and manage support requests from your team.</p>
                 </div>
                 <button
-                    className={styles.primaryButton} 
+                    className={styles.primaryButton}
                     onClick={() => setIsFormOpen(true)}>
                     ＋ New ticket
                 </button>
@@ -54,15 +82,17 @@ export default function Tickets() {
                 <div className={styles.toolbar}>
                     <div>
                         <h2 className={styles.sectionTitle}>All tickets</h2>
-                        <span className={styles.count}>{tickets.length} tickets</span>
+                        <span className={styles.count}>{filteredTickets.length} tickets</span>
                     </div>
                     <div className={styles.actions}>
                         <div className={styles.search}>⌕ <input aria-label="Search tickets" placeholder="Search tickets..." /></div>
-                        <select className={styles.select} defaultValue="All statuses">
-                            <option>All statuses</option>
-                            <option>Open</option>
-                            <option>In progress</option>
-                            <option>Resolved</option>
+                        <select className={styles.select}
+                            value={status}
+                            onChange = {(e) => setStatus(e.target.value)}>
+                            <option value="all">All statuses</option>
+                            <option value="open">Open</option>
+                            <option value="in_progress">In progress</option>
+                            <option value="resolved">Resolved</option>
                         </select>
                     </div>
                 </div>
@@ -77,28 +107,28 @@ export default function Tickets() {
                             </tr>
                         </thead>
                         <tbody>
-                            {tickets.map((ticket) => (
-                                <tr key={ticket.id}>
+                            {filteredTickets.map((ticket) => (
+                                <tr key={ticket.ticket_number}>
                                     <td className={styles.td}>
-                                        <div className={styles.ticketId}>{ticket.id}</div>
+                                        <div className={styles.ticketId}>{ticket.ticket_number}</div>
                                         <span className={styles.ticketTitle}>{ticket.title}</span>
                                     </td>
-                                    <td className={styles.td}>{ticket.requester}</td>
+                                    <td className={styles.td}>{ticket.created_by}</td>
                                     <td className={styles.td}>
                                         <span
                                             className={styles.badge}
                                             style={{ color: statusColor[ticket.status], background: `${statusColor[ticket.status]}14` }}
                                         >
                                             <i className={styles.dot} style={{ background: statusColor[ticket.status] }} />
-                                            {ticket.status}
+                                            {ticket.status.toUpperCase()}
                                         </span>
                                     </td>
                                     <td className={styles.td}>
-                                        <span className={styles.priority} style={{ color: priorityColor[ticket.priority] }}>
-                                            {ticket.priority}
+                                        <span className={styles.priority} style={{ color: priorityColor[ticket.priority ? ticket.priority.toLowerCase() : ""] }}>
+                                            {ticket.priority?.toUpperCase() || "No Priority Level"}
                                         </span>
                                     </td>
-                                    <td className={styles.td}>{ticket.updated}</td>
+                                    <td className={styles.td}>{ticket.created_at}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -116,7 +146,7 @@ export default function Tickets() {
             </section>
 
             {isFormOpen && (
-                <AddTicketForm onClose={() => setIsFormOpen(false)}/>
+                <AddTicketForm onClose={() => setIsFormOpen(false)} />
             )}
         </main>
     );
